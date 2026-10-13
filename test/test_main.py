@@ -36,3 +36,23 @@ def test_get_reader_for_json_file(path: str) -> None:
 @pytest.mark.parametrize("path", ["data/data.txt", "data/file"])
 def test_get_reader_for_text_file(path: str) -> None:
     assert isinstance(get_reader(path), main_module.TextDataReader)
+
+
+@pytest.mark.parametrize("filename, content, expected", [
+    ("data.json",
+     '{"Иванов": {"химия": 95, "физика": 90}, "Петров": {"химия": 60}}',
+     "Студент, имеющий 90 баллов минимум по 2 дисциплинам: Иванов"),
+    ("data.txt",
+     "Петров\n    химия:60\n    физика:91\n",
+     "Студентов, имеющих 90 баллов минимум по 2 дисциплинам, нет"),
+])
+def test_main(tmpdir, monkeypatch, capsys, filename: str, content: str,
+              expected: str) -> None:
+    p = tmpdir.join(filename)
+    p.write_text(content, encoding='utf-8')
+    monkeypatch.setattr("sys.argv", ["main.py", "-p", str(p)])
+    main_module.main()
+    output = capsys.readouterr().out
+    assert "Students: " in output
+    assert "Rating: " in output
+    assert expected in output
