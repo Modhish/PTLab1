@@ -3,6 +3,8 @@ import argparse
 import sys
 
 from CalcRating import CalcRating
+from DataReader import DataReader
+from JsonDataReader import JsonDataReader
 from TextDataReader import TextDataReader
 
 
@@ -14,10 +16,16 @@ def get_path_from_arguments(args) -> str:
     return args.path
 
 
+def get_reader(path: str) -> DataReader:
+    if path.lower().endswith(".json"):
+        return JsonDataReader()
+    return TextDataReader()
+
+
 def main():
     path = get_path_from_arguments(sys.argv[1:])
 
-    reader = TextDataReader()
+    reader = get_reader(path)
     students = reader.read(path)
     print("Students: ", students)
 
