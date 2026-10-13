@@ -4,6 +4,7 @@ import sys
 
 from CalcRating import CalcRating
 from DataReader import DataReader
+from HighScoreStudentFinder import HighScoreStudentFinder
 from JsonDataReader import JsonDataReader
 from TextDataReader import TextDataReader
 
@@ -31,6 +32,8 @@ def main():
 
     rating = CalcRating(students).calc()
     print("Rating: ", rating)
+
+    print(HighScoreStudentFinder(students).get_message())
 
 
 if __name__ == "__main__":
