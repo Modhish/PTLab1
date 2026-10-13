@@ -1,0 +1,22 @@
+# Байт-код и кэш Python
+__pycache__/
+*.py[cod]
+
+# Кэш инструментов тестирования и покрытия
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Виртуальные окружения
+venv/
+.venv/
+env/
+
+# Настройки IDE и редакторов
+.idea/
+.vscode/
+*.swp
+
+# Служебные файлы ОС
+.DS_Store
+Thumbs.db
