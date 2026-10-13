@@ -31,4 +31,4 @@ jobs:
           pycodestyle src test
       - name: Test with pytest
         run: |
-          PYTHONPATH=./:./src/ pytest test
+          PYTHONPATH=./:./src/ pytest test --cov=src --cov-report=term-missing
